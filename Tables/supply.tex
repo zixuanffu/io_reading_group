@@ -1,0 +1,18 @@
+
+\begin{tabular}{lcccccc}
+    \toprule
+                     & \multicolumn{3}{c}{Bus} & \multicolumn{3}{c}{Car}                                                     \\
+    \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+                     & (1)                     & (2)                     & (3)        & (4)        & (5)        & (6)        \\
+    \midrule
+    Log Flow         & 0.092***                & 0.059***                & 0.101***   & 0.128***   & 0.100***   & 0.168***   \\
+                     & (0.006)                 & (0.006)                 & (0.008)    & (0.005)    & (0.005)    & (0.004)    \\
+    \midrule
+    Edge FE          & \checkmark              & \checkmark              & \checkmark & \checkmark & \checkmark & \checkmark \\
+    Weather controls &                         & \checkmark              & \checkmark &            & \checkmark & \checkmark \\
+    IV               &                         &                         & \checkmark &            &            & \checkmark \\
+    within $R^2$     & 0.093                   & 0.129                   & 0.116      & 0.411      & 0.529      & 0.443      \\
+    First-stage F    &                         & 2767.096                &            &            & 4487.258   &            \\
+    Observations     & 7962                    & 7962                    & 7962       & 11739      & 11739      & 11739      \\
+    \bottomrule
+\end{tabular}

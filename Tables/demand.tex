@@ -1,0 +1,30 @@
+
+\begin{tabular}{lccccccc}
+    \toprule
+                        & \multicolumn{5}{c}{Pooled} & \multicolumn{2}{c}{Peak/Off-Peak}                                                                  \\
+    \cmidrule(lr){2-6} \cmidrule(lr){7-8}
+                        & (1)                        & (2)                               & (3)        & (4)        & (5)        & Peak       & Off-peak   \\
+    \midrule
+    $\alpha_T$          & -1.068                     & -1.692                            & -2.345     & -2.415     & -1.928     & -1.824     & -1.872     \\
+                        & (0.011)                    & (0.022)                           & (0.023)    & (0.023)    & (0.018)    & (0.022)    & (0.027)    \\
+    $\alpha_p$          & -0.058                     & -0.155                            & -8.461     & -3.416     & -2.078     & -2.388     & -1.657     \\
+                        & (0.001)                    & (0.002)                           & (0.492)    & (0.111)    & (0.09)     & (0.225)    & (0.068)    \\
+    $\alpha_{py}$       & .                          & .                                 & -1.262     & -0.588     & -0.414     & -0.696     & -0.152     \\
+                        & .                          & .                                 & (0.039)    & (0.02)     & (0.022)    & (0.048)    & (0.022)    \\
+    $\rho$              & .                          & .                                 & .          & .          & 0.262      & 0.376      & 0.162      \\
+                        & .                          & .                                 & .          & .          & (0.012)    & (0.017)    & (0.017)    \\
+    \midrule
+    Estimator           & OLS                        & IV                                & GMM        & GMM        & GMM        & GMM        & GMM        \\
+    Policy Moment       &                            &                                   & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+    Car Ownership       &                            &                                   &            & \checkmark & \checkmark & \checkmark & \checkmark \\
+    Nest                &                            &                                   &            &            & \checkmark & \checkmark & \checkmark \\
+    Avg. VOT            & 18.41                      & 10.89                             & 23.88      & 14.65      & 13.47      & 19.47      & 9.81       \\
+    VOT (Bot. Quintile) & .                          & .                                 & 2.44       & 3.26       & 3.62       & 3.9        & 3.42       \\
+    VOT (Top Quintile)  & .                          & .                                 & 64.24      & 32.36      & 27.94      & 45.32      & 18.09      \\
+    Avg. Price Elast.   & -0.2                       & -0.53                             & -0.5       & -0.61      & -0.65      & -0.55      & -0.72      \\
+    Avg. Time Elast.    & -0.58                      & -0.91                             & -1.26      & -1.27      & -1.29      & -1.44      & -1.07      \\
+    M                   & 92,284                     & 92,284                            & 91,908     & 91,561     & 91,561     & 42,989     & 48,572     \\
+    N                   & 281,755                    & 281,755                           & 281,042    & 280,185    & 280,185    & 136,337    & 143,848    \\
+    \bottomrule
+\end{tabular}
+
