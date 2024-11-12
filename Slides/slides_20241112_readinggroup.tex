@@ -95,7 +95,7 @@
 \end{frame}
 
 \begin{frame}{Optimal Policy}
-  The budget constraint is giveN by
+  The budget constraint is given by
   \begin{equation*}
     B+\sum_{j\in G} (p_j q_j - C_j)\ge 0
   \end{equation*}
@@ -119,6 +119,15 @@
   \begin{equation*}
     \max_{j \in \mathcal{J}_m^i \cup \{0\}} \xi_{mj} + \alpha_T \cdot T_{mj} + \alpha_p^i \cdot p_{mj} + \epsilon_{mj}^i
   \end{equation*}
+  where $\alpha_p^i = \frac{\alpha_p}{y_i^{1 - \alpha_{py}}}$.
+\end{frame}
+\begin{frame}{Demand side $q(p,t)$}
+  We define two nests. One is the nest of the outside option (walking, biking, staying put)
+  \begin{quotation}
+    "We thus set the overall size of each individual market to be twice the number of trips we observe. We arrive at this factor by comparing the number of morning
+    commuters to the potential market size, which we take to be the number of residents."
+  \end{quotation}
+  The other includes the motorized modes. The $\rho$ captures the substitution degree within the nest.\footnote{A higher $\rho$ implies a higher degree of substitution among the inside goods.}
   The choice probability is given by
   \begin{equation*}
     \p_{mj}^i = \frac{\exp\left( \frac{\delta_{mj}^i}{1-\rho} \right)}{
@@ -136,6 +145,7 @@
     \p_{mj} = \int \p_{mj}^i \, dF_m(\alpha_p^i),
     \quad q_{mj} = N_m \cdot \p_{mj}
   \end{equation*}
+  where essentially we are integrating over the income distribution of each market.
 \end{frame}
 
 \begin{frame}{Demand side $q(p,t)$}
@@ -151,13 +161,13 @@
     However note that travel time $t$ is not exogenously given. It is affected by
     the demand $q$ as well as the frequency $k$. That is,
     \begin{equation*}
-      t = t(p,k)
+      t = t(q,k)
     \end{equation*}
   \end{block}
 
 \end{frame}
 
-\begin{frame}{Supply side $t(p,k)$}
+\begin{frame}{Supply side $t(q,k)$}
   To make the travel time function explicit,
   \begin{equation*}
     T_{mj} = \gamma \cdot \left( T_{mj}^{\text{walk}} + T_{mj}^{\text{wait}} \right) + T_{mj}^{\text{vehicle}}
@@ -172,7 +182,9 @@
   % \end{equation*}
   For waiting time,
   \begin{itemize}
-    \item public transit: taking into account the reliability
+    \item public transit: taking into account the reliability $\omega$ such that
+          $T_{mj}^{\text{wait}} = \frac{1 + \omega^2}{2 \cdot k_{mj}}$ \footnote{assuming
+            that travelers arrive randomly.}
     \item ride hailing: taking into account idle drivers in the vicinity
   \end{itemize}
   For in vehicle time, it takes into account \textbf{congestion}. When the total flow of vehicle on an edge is
@@ -187,12 +199,12 @@
     Given price $p$ and frequency $k$, an equilibrium is a vector of $q$ and $t$
     such that
     \begin{equation*}
-      q = q(p,t), \quad t = t(p,k)
+      q = q(p,t), \quad t = t(q,k)
     \end{equation*}
   \end{block}
   Solving the equilibrium is essentially finding the fixed point of the function
   \begin{equation*}
-    f_{p,k}(q)=q(p,t(p,k))
+    f_{p,k}(q)=q(p,t(q,k))
   \end{equation*}
   The author uses a limited-memory version of Broyden's method to find the root of $f_{p,k}(q)-q=0$.
 \end{frame}
@@ -220,9 +232,9 @@
 
 \begin{frame}{Demand: moment condition 1}
   We have two types of moment conditions.\\
-  The first one targets the price coefficient $\alpha_p$.
-  % We use the price variation introduced by a ride-hailing
-  % surcharge that applies to weekday trips that either originate or end in a downtown zone between 6 am and 10 pm. 
+  \alert{Indirect inference moments}: The first one targets the price coefficient $\alpha_p$.
+  \footnote{We use the price variation introduced by a ride-hailing
+    surcharge that applies to weekday trips that either originate or end in a downtown zone between 6 am and 10 pm.}
   \begin{equation*}
     \mathbb{E} \left[ (\hat{\eta}_{mj} - \tilde{\eta}_{mj}) \mathbbm{1}\{ j = \text{ride-hail}, m \in \mathcal{M}_{\tau} \} \right] = 0
   \end{equation*} where \(\hat{\eta}_{mj}\) is the ride-hailing elasticity from our differences-in-differences estimate (Appendix B), \(\tilde{\eta}_{mj}\) is the model-implied elasticity, and \(\mathcal{M}_{\tau}\) are the markets affected by the surcharge policy.
@@ -246,7 +258,7 @@
     \caption{Demand estimation results}
     \input{../Tables/demand.tex}
   \end{table}
-
+  The number of markets is enormous due to the $o-d-h$ combinations.
   % \footnotesize{Notes: This table presents demand estimation results from the specifications outlined in section 4.1. We obtain the average VOT by first computing the within market average VOT as the weighted average of $\alpha_T / \alpha_p^i$ and then averaging across markets, with weights given by market size. Average elasticities are computed as the weighted average of own-price and own-time elasticities across all mode-market observations, with weights given by market size. {We drop markets without income information in specifications with income heterogeneity.}}
 \end{frame}
 \begin{frame}{Supply: in vehicle time}
@@ -268,7 +280,7 @@
 \begin{frame}{Recap}
   \begin{enumerate}
     \item Estimate demand side parameters $\theta$ to get $q(p,t)$
-    \item Estimate supply side/congestion parameters $\beta$ to get $t(p,k)$
+    \item Estimate supply side/congestion parameters $\beta$ to get $t(q,k)$
     \item Solve the optimal policy $p^*$ and $k^*$.
     \item Compare the welfare under the status quo and the optimal policy.
   \end{enumerate}
@@ -288,19 +300,21 @@
     \includegraphics[width=0.66\textwidth]{../Figures/proposition1.png}
   \end{figure}
 \end{frame}
+
+\begin{frame}{Interpretation}
+  We find that an unconstrained social planner would set \alert{price minus marginal cost} equal to the \alert{marginal externality} (as in Pigou, 1932) plus a \alert{diversion term} that accounts for \textbf{mispricing of modes not under the planner's control}. This is a second-best solution that arises in the multi-product context when the planner has fewer instruments than there are products. However, a budget constrained planner must raise revenue, which introduces two monopoly-like distortions (Ramsey, 1927). First, the planner charges \alert{markups} that \textbf{downwards-distort quantities}. Second, quality (public transit frequency) is distorted towards the marginal consumer, as in \alert{Spence} (1975). \textbf{Cross-subsidization can completely eliminate these distortions}.
+\end{frame}
+
+\begin{frame}{Diversion term}
+  Second, the diversion term $M_j^q$ (Equation 6) captures the extent to which change in the price of $j$ induces substitution towards mispriced modes not under the planner's control. For instance, without road taxes, traveling by car may be underpriced. As a second best, the government would want to lower the price of public transit to induce substitution away from cars. $M_j^q$ is a sum over modes of two components: a diversion ratio $D_{kj}$ and a term in brackets that equals deviations of prices from a standard Pigouvian solution (marginal costs plus marginal externalities and network effects). This term is therefore the diversion-ratio weighted sum of these deviations for all other modes, and it is zero whenever all other modes are already priced at the Pigouvian solution.
+\end{frame}
+
 \begin{frame}
   \begin{figure}
     \centering
     \includegraphics[width=0.66\textwidth]{../Figures/proposition1_proof.png}
   \end{figure}
-\end{frame}
-
-\begin{frame}
-
-\end{frame}
-
-\begin{frame}
-
+  The derivation relies on the invertible (monotonic?) relationship between $p$ and $q$ such that choosing $q$ and $p$ is equivalent. Therefore, the optimal policy can be viewed as choosing $q$ and $k$ (rather than setting $p, k$).
 \end{frame}
 
 \begin{frame}{Empirical results}
@@ -319,6 +333,17 @@
       \includegraphics[width=0.9\textwidth]{../Figures/counter2.png}
     \end{figure}
   \end{columns}
+\end{frame}
+
+\begin{frame}{Diversion ratio (substitution)}
+  Define $D_{lj} = \frac{\partial q_l}{\partial p_j} / \frac{q_l}{p_j}$ as the diversion ratio from $j$ to $l$ of a price
+  increase for mode $j$.
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{../Figures/diversion.png}
+  \end{figure}
+  Note that the diversion ratio (from mode $j$ to $j_0$) may be sensitive to the assumption on the size of the outside option.\footnote{It seems that the $0.78$ diversion ratio from car to outside option is too high.}
+
 \end{frame}
 
 \begin{frame}
